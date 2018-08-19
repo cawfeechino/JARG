@@ -1,23 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class SongSelect : MonoBehaviour {
 
     //Reference to the content display
-    [SerializeField]
-    GameObject content;
+    
+    public GameObject content;
 
+    public AudioClip[] Songs;
+    //Song Button Prefab
     [SerializeField]
-    AudioClip[] Songs;
+    GameObject clone;
 
-	void Start () {
+    public Button selected = null;
+
+    public struct Song
+    {
+        public string title, artist, name;
+
+        public Song(string t, string a, string n)
+        {
+            title = t;
+            artist = a;
+            name = n;
+        }
+    }
+
+    void Start () {
         LoadSongsFromResources();
-	}
-    	
-	void Update () {
-		
-	}
+        Song[] songlist = ParseSongs();
+        var rectTransform = content.GetComponent<RectTransform>();
+        float width = rectTransform.sizeDelta.x;
+        float height = rectTransform.sizeDelta.y;
+        foreach (Song s in songlist)
+        {
+            RectTransform rt = content.GetComponent<RectTransform>();
+            GameObject child = Instantiate(clone);
+            child.transform.SetParent(content.transform);
+            child.transform.localScale = Vector3.one;
+            child.GetComponentInChildren<Text>().text = s.title + "\n" + s.artist;
+            child.name = s.name;
+        }
+        //Expands Content window to fit 
+        content.GetComponent<RectTransform>().sizeDelta = new Vector2(width, Mathf.Max(2560, songlist.Length * 500));
+
+        Debug.Log(Songs.Length);
+    }
+
+    void Update () {
+    }
     void LoadSongsFromResources()
     {
         Object[] loadedsongs = Resources.LoadAll("Music", typeof(AudioClip));
@@ -26,14 +60,24 @@ public class SongSelect : MonoBehaviour {
         {
             Songs[i] = (AudioClip)loadedsongs[i];
         }
-        foreach(AudioClip a in Songs)
-        {
-            Debug.Log(a.name);
-        }
+        
     }
-    void ParseSongs()
+    Song[] ParseSongs()
     {
-
+        Song[] s = new Song[Songs.Length];
+        for (int i = 0; i <Songs.Length; i++)
+        {
+            
+            
+            string[] uta = Songs[i].name.Split('-');
+            s[i].title = uta[0];
+            s[i].artist = uta[1];
+            s[i].name = Songs[i].name;
+            Debug.Log(s[i].title + " - " + s[i].artist);
+        }
+        return s;
     }
     
+
+
 }
