@@ -4,11 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-<<<<<<< HEAD
-  - Blinking
-=======
   - Note
->>>>>>> 68f7199a342df4aa6c863f803b775814fe22db5c
   layers:
   - Default
   - TransparentFX
