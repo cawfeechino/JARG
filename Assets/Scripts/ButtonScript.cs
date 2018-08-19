@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 public class ButtonScript : MonoBehaviour {
 
     // Use this for initialization
@@ -44,6 +45,7 @@ public class ButtonScript : MonoBehaviour {
         {
             //Start Gameplay
             Debug.Log("Start Game");
+            SceneManager.LoadScene(1);
         }
         else
         {
