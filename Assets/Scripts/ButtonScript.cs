@@ -27,8 +27,8 @@ public class ButtonScript : MonoBehaviour {
     {
         print("Go");
 
-        print(sselect.Songs.Length);
-        foreach (AudioClip song in sselect.Songs)
+        print(Globals.SongList.Count);
+        foreach (AudioClip song in Globals.SongList)
         {
             
             if (song.name == button.name)
@@ -45,6 +45,9 @@ public class ButtonScript : MonoBehaviour {
         {
             //Start Gameplay
             Debug.Log("Start Game");
+            AudioClip s = Globals.SongList.Find(song => song.name == button.name);
+            Debug.Log(s.name);
+            Globals.CurrentSong = s;
             SceneManager.LoadScene(1);
         }
         else

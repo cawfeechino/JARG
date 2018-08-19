@@ -9,10 +9,8 @@ public class BackgroundGenerator : MonoBehaviour {
     [SerializeField]
     UnityEngine.UI.Image background = null;
 	// Use this for initialization
-	void Awake () {
-        images.Clear();
-        LoadImagesFromResources();
-        SetBackground();    
+	void Start () {
+        //SetBackground();    
 	}
 	
 	// Update is called once per frame
@@ -22,16 +20,22 @@ public class BackgroundGenerator : MonoBehaviour {
 
     private void OnEnable()
     {
-        SetBackground();
+        StartCoroutine(ExecuteAfterTime(0.1f));
+        
     }
-    //Pass by reference jank method...
-    [SerializeField]
-    List<Sprite> images;
-    
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SetBackground();
+        // Code to execute after the delay
+    }
+
     //Sets background image to a random image amongst all the images in Assets/Resources/Backgrounds
     void SetBackground()
     {
-        background.sprite = images[(int)Mathf.Floor(Random.Range(0, images.Count - 1))];
+        int rand = (int)Mathf.Floor(Random.Range(0, Globals.BackgroundList.Count - 1));
+        Debug.Log(Globals.BackgroundList.Count);
+        background.sprite = Globals.BackgroundList[rand];
     }
 
     //Gets all images from some location on disk and assigns it to images. To Do Later
@@ -40,13 +44,5 @@ public class BackgroundGenerator : MonoBehaviour {
 
     }
 
-    //Loads all Images from resources as sprites.
-    void LoadImagesFromResources()
-    {
-        Object[] loadedimages = Resources.LoadAll("Backgrounds", typeof(Sprite));
-        for (int i = 0; i < loadedimages.Length; i++)
-        {
-            images.Add((Sprite)loadedimages[i]);
-        }
-    }
+
 }
