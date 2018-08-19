@@ -29,6 +29,9 @@ public class SongSelect : MonoBehaviour {
         }
     }
     MainMenu m;
+    //Size of height of each item in the list
+    [SerializeField]
+    float CellSize;
     void Start () {
         m = FindObjectOfType<MainMenu>();
         //LoadSongsFromResources();
@@ -45,7 +48,7 @@ public class SongSelect : MonoBehaviour {
             child.name = s.name;
         }
         //Expands Content window to fit 
-        content.GetComponent<RectTransform>().sizeDelta = new Vector2(width, Mathf.Max(2560, songlist.Count * 500));
+        content.GetComponent<RectTransform>().sizeDelta = new Vector2(width, Mathf.Max(2560, songlist.Count * CellSize));
     }
 
     void Update () {
@@ -53,7 +56,8 @@ public class SongSelect : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             gameObject.SetActive(false);
-            m.gameObject.SetActive(true);            
+            m.gameObject.SetActive(true);
+            selected = null;
         }
     }
     //void LoadSongsFromResources()

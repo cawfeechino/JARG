@@ -518,6 +518,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114901561003309690, guid: 570e898d1d15141469bd5d1c162c6443,
+        type: 2}
+      propertyPath: CellSize
+      value: 550
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 570e898d1d15141469bd5d1c162c6443, type: 2}
   m_IsPrefabAsset: 0
