@@ -18,8 +18,9 @@ public class MainMenu : MonoBehaviour {
     void Start () {
         ss = FindObjectOfType<SongSelect>();
         StartCoroutine(flashobject());
-        GetComponent<AudioSource>().clip = ss.Songs[(int)Mathf.Floor(Random.Range(0, ss.Songs.Length - 1))];
+        GetComponent<AudioSource>().clip = Globals.SongList[(int)Mathf.Floor(Random.Range(0, Globals.SongList.Count - 1))];
         GetComponent<AudioSource>().Play();
+        ss.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -40,7 +41,7 @@ public class MainMenu : MonoBehaviour {
     private void OnEnable()
     {
         StartCoroutine(flashobject());
-        GetComponent<AudioSource>().clip = ss.Songs[(int)Mathf.Floor(Random.Range(0, ss.Songs.Length - 1))];
+        GetComponent<AudioSource>().clip = Globals.SongList[(int)Mathf.Floor(Random.Range(0, Globals.SongList.Count - 1))];
         GetComponent<AudioSource>().Play();
     }
     private void OnDisable()
