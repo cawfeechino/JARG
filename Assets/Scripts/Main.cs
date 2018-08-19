@@ -68,6 +68,10 @@ public class Main : MonoBehaviour {
             SceneManager.LoadScene(0);
             Destroy(this.gameObject);
         }
+        else if(GetComponent<AudioSource>().isPlaying && gameStarted && Input.GetKeyDown(KeyCode.Escape))
+        {
+            stop = true;
+        }
         if(stop)
         {
             GetComponent<AudioSource>().Stop();
