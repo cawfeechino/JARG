@@ -20,7 +20,10 @@ public class BackgroundGenerator : MonoBehaviour {
 	    	
 	}
 
-
+    private void OnEnable()
+    {
+        SetBackground();
+    }
     //Pass by reference jank method...
     [SerializeField]
     List<Sprite> images;
