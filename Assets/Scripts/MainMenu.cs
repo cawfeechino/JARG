@@ -4,19 +4,28 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour {
     
-
+    //Attach to Canvas 
     //Contains references to all menu objects
     [SerializeField]
     GameObject[] MenuObjects;
-    
-	void Start () {
+    SongSelect ss;
+    private void Awake()
+    {
+        ss = FindObjectOfType<SongSelect>();
         StartCoroutine(flashobject());
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    void Start () {
+        ss = FindObjectOfType<SongSelect>();
+        StartCoroutine(flashobject());
+        GetComponent<AudioSource>().clip = ss.Songs[(int)Mathf.Floor(Random.Range(0, ss.Songs.Length - 1))];
+        GetComponent<AudioSource>().Play();
+    }
+
+    // Update is called once per frame
+    void Update() {
         //When detects user touches it closes the title screen.
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved || Input.GetMouseButtonDown(0))
         {
             // Get movement of the finger since last frame
             //Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
@@ -28,7 +37,16 @@ public class MainMenu : MonoBehaviour {
             Application.Quit();
         }
     }
-
+    private void OnEnable()
+    {
+        StartCoroutine(flashobject());
+        GetComponent<AudioSource>().clip = ss.Songs[(int)Mathf.Floor(Random.Range(0, ss.Songs.Length - 1))];
+        GetComponent<AudioSource>().Play();
+    }
+    private void OnDisable()
+    {
+        ss.gameObject.SetActive(true);
+    }
     //Function makes referenced menu objects blink in an out.
     IEnumerator flashobject()
     {

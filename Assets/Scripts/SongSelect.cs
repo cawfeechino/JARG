@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class SongSelect : MonoBehaviour {
 
     //Reference to the content display
-    
+    //Attach to Canvas
     public GameObject content;
 
     public AudioClip[] Songs;
@@ -28,13 +28,13 @@ public class SongSelect : MonoBehaviour {
             name = n;
         }
     }
-
+    MainMenu m;
     void Start () {
+        m = FindObjectOfType<MainMenu>();
         LoadSongsFromResources();
         Song[] songlist = ParseSongs();
         var rectTransform = content.GetComponent<RectTransform>();
         float width = rectTransform.sizeDelta.x;
-        float height = rectTransform.sizeDelta.y;
         foreach (Song s in songlist)
         {
             RectTransform rt = content.GetComponent<RectTransform>();
@@ -51,6 +51,12 @@ public class SongSelect : MonoBehaviour {
     }
 
     void Update () {
+        //Android Back Button Event
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameObject.SetActive(false);
+            m.gameObject.SetActive(true);            
+        }
     }
     void LoadSongsFromResources()
     {

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 public class ButtonScript : MonoBehaviour {
 
-    // Use this for initialization
-
+    
+    //Attach to Button UI
     [SerializeField]
     SongSelect sselect;
     // Update is called once per frame
